@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Market Intelligence Platform"
+version = "1.0.0"
+id = "artifacts/market-intel"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18545
+
+[services.development]
+run = "pnpm --filter @workspace/market-intel run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/market-intel", "run", "build" ]
+publicDir = "artifacts/market-intel/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18545"
+BASE_PATH = "/"
